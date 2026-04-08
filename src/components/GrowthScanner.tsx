@@ -138,6 +138,16 @@ export default function GrowthScanner() {
     }
   };
 
+  const getWhatsAppUrl = () => {
+    const baseUrl = "https://api.whatsapp.com/send/";
+    const phone = "595987145624";
+    const profile = results?.profileName || username;
+    const summary = results?.summary || "";
+    const text = `Hola AdsLab! Acabo de escanear mi perfil (${profile}).\n\nResumen del Análisis: ${summary}\n\nQuiero hacer crecer mi negocio y vender más.`;
+    
+    return `${baseUrl}?phone=${phone}&text=${encodeURIComponent(text)}`;
+  };
+
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-adslab-cyan/30">
       <main className="max-w-6xl mx-auto px-4 py-8 md:py-12">
@@ -331,7 +341,7 @@ export default function GrowthScanner() {
                     Habla con nuestro equipo y descubrí la fórmula exacta para tu crecimiento.
                   </p>
                   <a 
-                    href="https://api.whatsapp.com/send/?phone=595987145624&text=Hola%20AdsLab!%20Acabo%20de%20escanear%20mi%20perfil.%20Quiero%20hacer%20crecer%20mi%20negocio%20y%20vender%20m%C3%A1s.&type=phone_number&app_absent=0"
+                    href={getWhatsAppUrl()}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 bg-adslab-cyan text-black px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-tighter hover:brightness-110 transition-all relative z-10"
