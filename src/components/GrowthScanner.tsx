@@ -22,22 +22,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Logo from './Logo';
 
-interface LabComponent {
-  title: string;
-  score: number;
-  items: {
-    text: string;
-    status: 'success' | 'error';
-  }[];
-  type: string;
-  icon: 'user' | 'layout' | 'megaphone';
+interface LabPoint {
+  text: string;
+  advice: string;
 }
 
 interface LabResult {
   effectiveness: number;
   reaction: string;
   summary: string;
-  components: LabComponent[];
+  positivePoints: LabPoint[];
+  negativePoints: LabPoint[];
   potentialText: string;
   profileName: string;
 }
@@ -94,39 +89,32 @@ export default function GrowthScanner() {
         summary: `El perfil ${cleanUsername} presenta una estructura con potencial, pero detectamos fugas de rendimiento en la conversión de audiencia. La fórmula actual requiere un ajuste en la frecuencia de impacto y optimización de creativos para maximizar el ROI en el mercado paraguayo.`,
         potentialText: "Tu perfil tiene la base necesaria para escalar con pauta publicitaria científica.",
         profileName: cleanUsername,
-        components: [
-          {
-            title: "Diagnóstico de Bio",
-            score: Math.floor(Math.random() * 30) + 60,
-            type: "COMP_BIO",
-            icon: "user",
-            items: [
-              { text: "Claridad en la propuesta de valor", status: Math.random() > 0.3 ? 'success' : 'error' },
-              { text: "Optimización de Call to Action", status: Math.random() > 0.5 ? 'success' : 'error' },
-              { text: "Uso de palabras clave estratégicas", status: Math.random() > 0.4 ? 'success' : 'error' }
-            ]
+        positivePoints: [
+          { 
+            text: "Identidad visual coherente", 
+            advice: "Podemos potenciar esto creando plantillas de 'High-Performance' para tus portadas de Reels, aumentando el CTR un 25%." 
           },
-          {
-            title: "Identidad Visual",
-            score: Math.floor(Math.random() * 30) + 60,
-            type: "COMP_VISUAL",
-            icon: "layout",
-            items: [
-              { text: "Coherencia cromática en el feed", status: Math.random() > 0.3 ? 'success' : 'error' },
-              { text: "Calidad técnica de Reels", status: Math.random() > 0.4 ? 'success' : 'error' },
-              { text: "Jerarquía visual en portadas", status: Math.random() > 0.5 ? 'success' : 'error' }
-            ]
+          { 
+            text: "Audiencia orgánica activa", 
+            advice: "Es el momento de inyectar pauta de 'Retargeting' para convertir esos seguidores en clientes reales mediante un embudo de ventas." 
           },
-          {
-            title: "Estrategia de Ads",
-            score: Math.floor(Math.random() * 30) + 50,
-            type: "COMP_ADS",
-            icon: "megaphone",
-            items: [
-              { text: "Segmentación por intereses locales", status: Math.random() > 0.6 ? 'success' : 'error' },
-              { text: "Estructura de embudo de ventas", status: Math.random() > 0.7 ? 'success' : 'error' },
-              { text: "Píxel de seguimiento configurado", status: Math.random() > 0.8 ? 'success' : 'error' }
-            ]
+          { 
+            text: "Propuesta de valor clara", 
+            advice: "Podemos escalar este mensaje mediante anuncios de 'Broad Targeting' para dominar tu nicho en Paraguay." 
+          }
+        ],
+        negativePoints: [
+          { 
+            text: "Fuga de conversión en la Bio", 
+            advice: "Falta un 'Lead Magnet' claro. Debemos implementar un enlace directo a WhatsApp con un mensaje pre-configurado de alta conversión." 
+          },
+          { 
+            text: "Baja frecuencia de impacto (Ads)", 
+            advice: "Tu marca no está apareciendo lo suficiente. Necesitamos una campaña de 'Omnipresencia' con bajo presupuesto pero alta repetición." 
+          },
+          { 
+            text: "Falta de prueba social estratégica", 
+            advice: "Debemos organizar tus historias destacadas como un 'Laboratorio de Resultados' que valide tu autoridad instantáneamente." 
           }
         ]
       };
@@ -278,33 +266,49 @@ export default function GrowthScanner() {
                   </div>
                 </div>
 
-                {/* Grid Components */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                  {results?.components?.map((comp, idx) => (
-                    <div key={idx} className="glass-panel p-6 rounded-2xl border-white/5">
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-white/5 rounded-lg">
-                            {getIcon(comp.icon)}
-                          </div>
-                          <h5 className="font-bold text-sm">{comp.title}</h5>
-                        </div>
-                        <span className="text-[10px] font-mono text-adslab-cyan">{comp.score}/100</span>
-                      </div>
-                      <div className="space-y-3">
-                        {comp.items?.map((item, iIdx) => (
-                          <div key={iIdx} className="flex items-start gap-2">
-                            {item.status === 'success' ? (
-                              <CheckCircle2 className="w-3.5 h-3.5 text-adslab-cyan shrink-0 mt-0.5" />
-                            ) : (
-                              <XCircle className="w-3.5 h-3.5 text-red-500/50 shrink-0 mt-0.5" />
-                            )}
-                            <p className="text-[11px] text-slate-400 leading-tight">{item.text}</p>
-                          </div>
-                        ))}
-                      </div>
+                {/* Analysis Columns */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                  {/* Positive Column */}
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-adslab-cyan/10 border border-adslab-cyan/20 rounded-xl w-fit">
+                      <CheckCircle2 className="w-4 h-4 text-adslab-cyan" />
+                      <span className="text-xs font-bold uppercase tracking-widest text-adslab-cyan">Puntos Positivos</span>
                     </div>
-                  ))}
+                    <div className="space-y-4">
+                      {results?.positivePoints.map((point, idx) => (
+                        <div key={idx} className="glass-panel p-5 rounded-2xl border-adslab-cyan/10 hover:border-adslab-cyan/30 transition-colors">
+                          <h5 className="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 bg-adslab-cyan rounded-full"></div>
+                            {point.text}
+                          </h5>
+                          <p className="text-[11px] text-slate-400 leading-relaxed italic">
+                            <span className="text-adslab-cyan font-bold not-italic">Cómo potenciar:</span> {point.advice}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Negative Column */}
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-xl w-fit">
+                      <AlertCircle className="w-4 h-4 text-red-400" />
+                      <span className="text-xs font-bold uppercase tracking-widest text-red-400">Puntos a Mejorar</span>
+                    </div>
+                    <div className="space-y-4">
+                      {results?.negativePoints.map((point, idx) => (
+                        <div key={idx} className="glass-panel p-5 rounded-2xl border-red-500/10 hover:border-red-500/30 transition-colors">
+                          <h5 className="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                            <div className="w-1.5 h-1.5 bg-red-400 rounded-full"></div>
+                            {point.text}
+                          </h5>
+                          <p className="text-[11px] text-slate-400 leading-relaxed italic">
+                            <span className="text-red-400 font-bold not-italic">Cómo mejorar:</span> {point.advice}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Summary Box */}
