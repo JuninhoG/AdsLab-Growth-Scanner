@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import Logo from './Logo';
+
 interface LabComponent {
   title: string;
   score: number;
@@ -161,12 +163,7 @@ export default function GrowthScanner() {
               className="flex flex-col items-center text-center pt-10 md:pt-20"
             >
               <div className="mb-12">
-                <img 
-                  src="https://drive.google.com/uc?export=view&id=1LI161PY0Wr8qlX3zPU3SzN4MTxricsua" 
-                  alt="AdsLab Logo" 
-                  className="h-16 md:h-24 w-auto object-contain"
-                  referrerPolicy="no-referrer"
-                />
+                <Logo className="h-20" />
               </div>
 
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
@@ -243,13 +240,8 @@ export default function GrowthScanner() {
             >
               <div className="w-full max-w-4xl bg-black p-4 md:p-8 rounded-3xl">
                 {/* Header Results */}
-                <div className="text-center mb-10">
-                  <img 
-                    src="https://drive.google.com/uc?export=view&id=1LI161PY0Wr8qlX3zPU3SzN4MTxricsua" 
-                    alt="AdsLab Logo" 
-                    className="h-10 w-auto mx-auto mb-6 object-contain"
-                    referrerPolicy="no-referrer"
-                  />
+                <div className="text-center mb-10 flex flex-col items-center">
+                  <Logo className="h-12 mb-6" showText={false} />
                   <p className="text-[10px] uppercase tracking-[0.3em] text-slate-500 mb-2">Resultados del Análisis</p>
                   <h3 className="text-3xl md:text-5xl font-bold">
                     Perfil: <span className="lab-text-gradient">{results?.profileName || username}</span>
@@ -345,13 +337,8 @@ export default function GrowthScanner() {
                 </div>
 
                 {/* Footer Results */}
-                <div className="mt-12 text-center opacity-30">
-                  <img 
-                    src="https://drive.google.com/uc?export=view&id=1LI161PY0Wr8qlX3zPU3SzN4MTxricsua" 
-                    alt="AdsLab Logo" 
-                    className="h-6 w-auto mx-auto mb-4 object-contain grayscale"
-                    referrerPolicy="no-referrer"
-                  />
+                <div className="mt-12 text-center opacity-30 flex flex-col items-center">
+                  <Logo className="h-8 mb-4 grayscale" showText={true} />
                   <p className="text-[9px] uppercase tracking-[0.4em]">&copy; 2026 AdsLab • Marketing & Publicidad</p>
                 </div>
               </div>
