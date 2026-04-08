@@ -249,7 +249,6 @@ export default function GrowthScanner() {
                     alt="AdsLab Logo" 
                     className="h-10 w-auto mx-auto mb-6 object-contain"
                     referrerPolicy="no-referrer"
-                    crossOrigin="anonymous"
                   />
                   <p className="text-[10px] uppercase tracking-[0.3em] text-slate-500 mb-2">Resultados del Análisis</p>
                   <h3 className="text-3xl md:text-5xl font-bold">
@@ -352,7 +351,6 @@ export default function GrowthScanner() {
                     alt="AdsLab Logo" 
                     className="h-6 w-auto mx-auto mb-4 object-contain grayscale"
                     referrerPolicy="no-referrer"
-                    crossOrigin="anonymous"
                   />
                   <p className="text-[9px] uppercase tracking-[0.4em]">&copy; 2026 AdsLab • Marketing & Publicidad</p>
                 </div>
