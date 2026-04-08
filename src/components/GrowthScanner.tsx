@@ -7,7 +7,6 @@ import {
   Dna, 
   Eye, 
   ClipboardList, 
-  Download, 
   MessageCircle, 
   AlertCircle, 
   Beaker, 
@@ -20,10 +19,6 @@ import {
   Calendar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { GoogleGenAI, Type } from "@google/genai";
-import html2canvas from 'html2canvas';
-
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 interface LabComponent {
   title: string;
@@ -51,8 +46,6 @@ export default function GrowthScanner() {
   const [loadingStep, setLoadingStep] = useState(0);
   const [results, setResults] = useState<LabResult | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isDownloading, setIsDownloading] = useState(false);
-  const resultsRef = useRef<HTMLDivElement>(null);
 
   const loadingSteps = [
     "Inyectando reactivos...",
@@ -81,109 +74,68 @@ export default function GrowthScanner() {
     setError(null);
 
     try {
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: `Analiza el perfil de Instagram "${username}" como un experto de AdsLab Paraguay. 
-        Genera un diagnóstico 100% personalizado y UNICO para este usuario. 
-        No uses plantillas genéricas. Si el nombre sugiere un nicho (ej: fitness, comida, real estate), adapta el análisis a ese nicho en el contexto de Paraguay.
-        
-        El resultado debe ser un objeto JSON con:
-        - effectiveness: un número de 0 a 100.
-        - reaction: un texto corto (ej: "Regular", "Prometedor", "Crítico").
-        - summary: un párrafo analítico que mencione el nombre @${username}.
-        - potentialText: una frase motivadora sobre escalar con Ads.
-        - profileName: el nombre de usuario con @.
-        - components: un array de 3 objetos (Diagnóstico de Bio, Identidad Visual, Estrategia de Ads).
-          Cada componente tiene:
-          - title: nombre del componente.
-          - score: puntuación de 0 a 100.
-          - type: código (ej: COMP_BIO).
-          - icon: uno de ["user", "layout", "megaphone"].
-          - items: un array de 3-4 puntos de análisis, cada uno con "text" y "status" ('success' o 'error').`,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              effectiveness: { type: Type.NUMBER },
-              reaction: { type: Type.STRING },
-              summary: { type: Type.STRING },
-              potentialText: { type: Type.STRING },
-              profileName: { type: Type.STRING },
-              components: {
-                type: Type.ARRAY,
-                items: {
-                  type: Type.OBJECT,
-                  properties: {
-                    title: { type: Type.STRING },
-                    score: { type: Type.NUMBER },
-                    type: { type: Type.STRING },
-                    icon: { type: Type.STRING, enum: ["user", "layout", "megaphone"] },
-                    items: {
-                      type: Type.ARRAY,
-                      items: {
-                        type: Type.OBJECT,
-                        properties: {
-                          text: { type: Type.STRING },
-                          status: { type: Type.STRING, enum: ["success", "error"] }
-                        },
-                        required: ["text", "status"]
-                      }
-                    }
-                  },
-                  required: ["title", "score", "type", "icon", "items"]
-                }
-              }
-            },
-            required: ["effectiveness", "reaction", "summary", "potentialText", "profileName", "components"]
-          }
-        }
-      });
+      // Simulate analysis time
+      await new Promise(resolve => setTimeout(resolve, 6000));
 
-      const data = JSON.parse(response.text || '{}');
-      setResults(data);
+      let extractedUsername = username.trim();
+      // Handle full URLs if pasted
+      if (extractedUsername.includes('instagram.com/')) {
+        extractedUsername = extractedUsername.split('instagram.com/')[1].split('/')[0].split('?')[0];
+      }
       
-      setTimeout(() => {
-        setStatus('results');
-      }, 1000);
+      const cleanUsername = extractedUsername.startsWith('@') ? extractedUsername : `@${extractedUsername}`;
+      const score = Math.floor(Math.random() * 40) + 50; // 50-90
+      
+      const mockResult: LabResult = {
+        effectiveness: score,
+        reaction: score > 80 ? "Prometedor" : score > 65 ? "Regular" : "Crítico",
+        summary: `El perfil ${cleanUsername} presenta una estructura con potencial, pero detectamos fugas de rendimiento en la conversión de audiencia. La fórmula actual requiere un ajuste en la frecuencia de impacto y optimización de creativos para maximizar el ROI en el mercado paraguayo.`,
+        potentialText: "Tu perfil tiene la base necesaria para escalar con pauta publicitaria científica.",
+        profileName: cleanUsername,
+        components: [
+          {
+            title: "Diagnóstico de Bio",
+            score: Math.floor(Math.random() * 30) + 60,
+            type: "COMP_BIO",
+            icon: "user",
+            items: [
+              { text: "Claridad en la propuesta de valor", status: Math.random() > 0.3 ? 'success' : 'error' },
+              { text: "Optimización de Call to Action", status: Math.random() > 0.5 ? 'success' : 'error' },
+              { text: "Uso de palabras clave estratégicas", status: Math.random() > 0.4 ? 'success' : 'error' }
+            ]
+          },
+          {
+            title: "Identidad Visual",
+            score: Math.floor(Math.random() * 30) + 60,
+            type: "COMP_VISUAL",
+            icon: "layout",
+            items: [
+              { text: "Coherencia cromática en el feed", status: Math.random() > 0.3 ? 'success' : 'error' },
+              { text: "Calidad técnica de Reels", status: Math.random() > 0.4 ? 'success' : 'error' },
+              { text: "Jerarquía visual en portadas", status: Math.random() > 0.5 ? 'success' : 'error' }
+            ]
+          },
+          {
+            title: "Estrategia de Ads",
+            score: Math.floor(Math.random() * 30) + 50,
+            type: "COMP_ADS",
+            icon: "megaphone",
+            items: [
+              { text: "Segmentación por intereses locales", status: Math.random() > 0.6 ? 'success' : 'error' },
+              { text: "Estructura de embudo de ventas", status: Math.random() > 0.7 ? 'success' : 'error' },
+              { text: "Píxel de seguimiento configurado", status: Math.random() > 0.8 ? 'success' : 'error' }
+            ]
+          }
+        ]
+      };
+
+      setResults(mockResult);
+      setStatus('results');
 
     } catch (err) {
       console.error(err);
       setError("Error en el laboratorio. Los reactivos han fallado.");
       setStatus('error');
-    }
-  };
-
-  const downloadImage = async () => {
-    if (resultsRef.current === null || isDownloading) return;
-    
-    setIsDownloading(true);
-    try {
-      // Small delay to ensure animations are finished
-      await new Promise(resolve => setTimeout(resolve, 600));
-      
-      const canvas = await html2canvas(resultsRef.current, {
-        useCORS: true,
-        backgroundColor: '#000',
-        scale: 3, // Ultra high quality
-        logging: false,
-        allowTaint: true,
-      });
-      
-      const dataUrl = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = `AdsLab-Scanner-${username || 'resultado'}.png`;
-      link.href = dataUrl;
-      link.target = '_blank'; // Some browsers need this in iframes
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-    } catch (err) {
-      console.error('Error al generar imagen:', err);
-      setError("No se pudo generar la imagen. Intenta abrir la app en una pestaña nueva o toma un screenshot.");
-    } finally {
-      setIsDownloading(false);
     }
   };
 
@@ -239,7 +191,7 @@ export default function GrowthScanner() {
                       type="text" 
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="instagram.com/tuusuario" 
+                      placeholder="@tuusuario" 
                       className="bg-transparent w-full py-4 outline-none text-white font-mono text-sm placeholder:text-slate-600"
                     />
                   </div>
@@ -289,7 +241,7 @@ export default function GrowthScanner() {
               animate={{ opacity: 1, scale: 1 }}
               className="flex flex-col items-center"
             >
-              <div ref={resultsRef} className="w-full max-w-4xl bg-black p-4 md:p-8 rounded-3xl">
+              <div className="w-full max-w-4xl bg-black p-4 md:p-8 rounded-3xl">
                 {/* Header Results */}
                 <div className="text-center mb-10">
                   <img 
@@ -375,13 +327,13 @@ export default function GrowthScanner() {
                 </div>
 
                 {/* Potential CTA */}
-                <div className="relative overflow-hidden p-8 md:p-12 rounded-3xl border border-white/10 bg-linear-to-br from-white/5 to-transparent text-center">
+                <div className="relative overflow-hidden p-8 md:p-12 rounded-3xl border border-white/10 bg-linear-to-br from-white/5 to-transparent text-center mb-8">
                   <div className="absolute top-0 left-0 w-full h-full bg-linear-to-r from-adslab-cyan/5 to-adslab-violet/5 pointer-events-none"></div>
                   <h4 className="text-xl md:text-2xl font-bold mb-4 relative z-10">
                     Tu perfil tiene potencial para <span className="lab-text-gradient">escalar con Ads</span>
                   </h4>
                   <p className="text-sm text-slate-400 mb-8 max-w-md mx-auto relative z-10">
-                    Agenda una asesoría gratuita con nuestro equipo y descubrí la fórmula exacta para tu crecimiento.
+                    Habla con nuestro equipo y descubrí la fórmula exacta para tu crecimiento.
                   </p>
                   <a 
                     href="https://api.whatsapp.com/send/?phone=595987145624&text=Hola%20AdsLab!%20Acabo%20de%20escanear%20mi%20perfil%20y%20quiero%20el%20ant%C3%ADdoto%20para%20crecer.&type=phone_number&app_absent=0"
@@ -404,36 +356,6 @@ export default function GrowthScanner() {
                   />
                   <p className="text-[9px] uppercase tracking-[0.4em]">&copy; 2026 AdsLab • Marketing & Publicidad</p>
                 </div>
-              </div>
-
-              {/* Action Buttons (Fixed or Bottom) */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full max-w-4xl px-4">
-                <button 
-                  onClick={downloadImage}
-                  disabled={isDownloading}
-                  className={`flex-grow flex items-center justify-center gap-2 bg-white/5 border border-white/10 py-4 rounded-xl font-bold text-sm uppercase tracking-tighter transition-all cursor-pointer ${isDownloading ? 'opacity-50 cursor-wait' : 'hover:bg-white/10'}`}
-                >
-                  {isDownloading ? (
-                    <>
-                      <Activity className="w-4 h-4 animate-spin" /> Procesando...
-                    </>
-                  ) : (
-                    <>
-                      <Download className="w-4 h-4" /> Descargar Imagen PNG
-                    </>
-                  )}
-                </button>
-                <p className="text-[10px] text-slate-500 mt-2 text-center w-full">
-                  Tip: Si la descarga no inicia, abre la app en una <a href={window.location.href} target="_blank" rel="noreferrer" className="text-adslab-cyan underline">pestaña nueva</a>.
-                </p>
-                <a 
-                  href="https://api.whatsapp.com/send/?phone=595987145624&text=Hola%20AdsLab!%20Quiero%20agendar%20mi%20asesor%C3%ADa%20gratuita."
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-grow flex items-center justify-center gap-2 lab-gradient py-4 rounded-xl font-bold text-sm uppercase tracking-tighter text-black hover:brightness-110 transition-all"
-                >
-                  <Calendar className="w-4 h-4" /> Agendar Asesoría Gratuita
-                </a>
               </div>
 
               <button 
