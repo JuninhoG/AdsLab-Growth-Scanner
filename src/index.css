@@ -4,24 +4,26 @@
 @theme {
   --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   
-  --color-adslab-cyan: #00d2ff;
-  --color-adslab-violet: #9d50bb;
+  --color-adslab-cyan: #0066f9;
+  --color-adslab-violet: #8400ff;
+  --color-adslab-deep: #0032ff;
 }
 
 @layer base {
   body {
     @apply bg-black text-white min-h-screen;
-    background-image: radial-gradient(circle at 50% 40%, #0a0514 0%, #000 100%);
+    background-image: radial-gradient(circle at 50% 40%, #001a4d 0%, #000 100%);
   }
 }
 
 @layer components {
   .lab-gradient {
-    @apply bg-linear-to-br from-adslab-cyan to-adslab-violet;
+    background: linear-gradient(135deg, #0066f9 0%, #0032ff 50%, #8400ff 100%);
   }
   
   .lab-text-gradient {
-    @apply bg-linear-to-r from-adslab-cyan to-adslab-violet bg-clip-text text-transparent;
+    background: linear-gradient(to right, #0066f9 0%, #0032ff 50%, #8400ff 100%);
+    @apply bg-clip-text text-transparent;
   }
 
   .glass-panel {
@@ -44,6 +46,6 @@
   }
 
   .glow-input:focus-within {
-    @apply shadow-[0_0_15px_rgba(0,210,255,0.4)] border-adslab-cyan;
+    @apply shadow-[0_0_15px_rgba(0,102,249,0.4)] border-adslab-cyan;
   }
 }
