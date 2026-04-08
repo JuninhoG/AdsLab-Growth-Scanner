@@ -171,31 +171,30 @@ export default function GrowthScanner() {
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Growth Scanner V1.0</span>
               </div>
 
-              <h2 className="text-4xl md:text-7xl font-bold mb-6 tracking-tight leading-[1.1]">
-                Escanea la Fórmula de tu <br />
-                <span className="lab-text-gradient">Instagram</span>
+              <h2 className="text-[32px] sm:text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-[1.1] px-2">
+                Escanea la Fórmula <br className="sm:hidden" /> de tu <span className="lab-text-gradient block sm:inline">Instagram</span>
               </h2>
 
-              <p className="text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-12 leading-relaxed px-4">
+              <p className="text-slate-400 text-sm md:text-lg max-w-xl mx-auto mb-10 leading-relaxed px-6">
                 Analizamos tu perfil, detectamos áreas de oportunidad y potenciamos tu escalabilidad digital.
               </p>
 
               <div className="relative group w-full max-w-2xl px-4">
                 <div className="absolute -inset-1 bg-linear-to-r from-adslab-cyan/30 to-adslab-violet/30 rounded-2xl blur-2xl opacity-20 group-hover:opacity-40 transition duration-500"></div>
-                <div className="relative flex flex-col md:flex-row items-center p-1.5 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
-                  <div className="flex-grow flex items-center px-4 w-full">
-                    <Instagram className="w-5 h-5 text-adslab-cyan/50 mr-3" />
+                <div className="relative flex flex-col md:flex-row items-stretch md:items-center p-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl gap-2">
+                  <div className="flex-grow flex items-center px-4">
+                    <Instagram className="w-5 h-5 text-adslab-cyan/50 mr-3 shrink-0" />
                     <input 
                       type="text" 
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="Ingresa tu @usuario o link de perfil" 
+                      placeholder="Tu @usuario o link" 
                       className="bg-transparent w-full py-4 outline-none text-white font-medium text-base placeholder:text-slate-600"
                     />
                   </div>
                   <button 
                     onClick={runLabTest}
-                    className="lab-gradient w-full md:w-auto px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(0,210,255,0.3)] transition-all active:scale-[0.97] cursor-pointer text-black group/btn whitespace-nowrap"
+                    className="lab-gradient px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(0,102,249,0.3)] transition-all active:scale-[0.97] cursor-pointer text-black group/btn whitespace-nowrap"
                   >
                     <span>Iniciar Análisis</span>
                     <Maximize className="w-4 h-4 group-hover/btn:rotate-90 transition-transform duration-300" />
@@ -244,14 +243,14 @@ export default function GrowthScanner() {
                 <div className="text-center mb-10 flex flex-col items-center">
                   <Logo className="h-12 mb-6" showText={false} />
                   <p className="text-[10px] uppercase tracking-[0.3em] text-slate-500 mb-2">Resultados del Análisis</p>
-                  <h3 className="text-3xl md:text-5xl font-bold">
+                  <h3 className="text-2xl md:text-5xl font-bold break-all px-2">
                     Perfil: <span className="lab-text-gradient">{results?.profileName || username}</span>
                   </h3>
                 </div>
 
                 {/* Score Circle */}
-                <div className="flex justify-center mb-12">
-                  <div className="relative glass-panel p-8 rounded-3xl flex flex-col items-center w-64">
+                <div className="flex justify-center mb-12 w-full px-4">
+                  <div className="relative glass-panel p-6 md:p-8 rounded-3xl flex flex-col items-center w-full max-w-[280px]">
                     <div className="relative inline-flex items-center justify-center">
                       <svg className="w-40 h-40 transform -rotate-90">
                         <circle cx="80" cy="80" r="70" stroke="rgba(255,255,255,0.05)" strokeWidth="10" fill="transparent"></circle>
