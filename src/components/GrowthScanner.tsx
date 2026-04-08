@@ -331,12 +331,12 @@ export default function GrowthScanner() {
                     Habla con nuestro equipo y descubrí la fórmula exacta para tu crecimiento.
                   </p>
                   <a 
-                    href="https://api.whatsapp.com/send/?phone=595987145624&text=Hola%20AdsLab!%20Acabo%20de%20escanear%20mi%20perfil%20y%20quiero%20el%20ant%C3%ADdoto%20para%20crecer.&type=phone_number&app_absent=0"
+                    href="https://api.whatsapp.com/send/?phone=595987145624&text=Hola%20AdsLab!%20Acabo%20de%20escanear%20mi%20perfil.%20Quiero%20hacer%20crecer%20mi%20negocio%20y%20vender%20m%C3%A1s.&type=phone_number&app_absent=0"
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 bg-adslab-cyan text-black px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-tighter hover:brightness-110 transition-all relative z-10"
                   >
-                    <MessageCircle className="w-4 h-4" /> Hablar con un Especialista
+                    <MessageCircle className="w-4 h-4" /> Quiero crecer y vender más
                   </a>
                 </div>
 
