@@ -181,23 +181,24 @@ export default function GrowthScanner() {
               </p>
 
               <div className="relative group w-full max-w-2xl px-4">
-                <div className="absolute -inset-1 bg-linear-to-r from-adslab-cyan/20 to-adslab-violet/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
-                <div className="relative flex flex-col md:flex-row items-center p-2 bg-[#0a0a0a] border border-white/10 rounded-2xl shadow-[0_0_50px_rgba(0,210,255,0.05)]">
+                <div className="absolute -inset-1 bg-linear-to-r from-adslab-cyan/30 to-adslab-violet/30 rounded-2xl blur-2xl opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                <div className="relative flex flex-col md:flex-row items-center p-1.5 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
                   <div className="flex-grow flex items-center px-4 w-full">
+                    <Instagram className="w-5 h-5 text-adslab-cyan/50 mr-3" />
                     <input 
                       type="text" 
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      placeholder="@tuusuario" 
-                      className="bg-transparent w-full py-4 outline-none text-white font-mono text-sm placeholder:text-slate-600"
+                      placeholder="Ingresa tu @usuario o link de perfil" 
+                      className="bg-transparent w-full py-4 outline-none text-white font-medium text-base placeholder:text-slate-600"
                     />
                   </div>
                   <button 
                     onClick={runLabTest}
-                    className="lab-gradient w-full md:w-auto px-6 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.98] cursor-pointer text-black"
+                    className="lab-gradient w-full md:w-auto px-8 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(0,210,255,0.3)] transition-all active:scale-[0.97] cursor-pointer text-black group/btn whitespace-nowrap"
                   >
-                    <Maximize className="w-4 h-4" />
-                    Iniciar Análisis
+                    <span>Iniciar Análisis</span>
+                    <Maximize className="w-4 h-4 group-hover/btn:rotate-90 transition-transform duration-300" />
                   </button>
                 </div>
               </div>
