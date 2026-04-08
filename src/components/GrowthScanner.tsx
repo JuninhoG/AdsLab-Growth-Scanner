@@ -86,7 +86,7 @@ export default function GrowthScanner() {
       const mockResult: LabResult = {
         effectiveness: score,
         reaction: score > 80 ? "Prometedor" : score > 65 ? "Regular" : "Crítico",
-        summary: `El perfil ${cleanUsername} presenta una estructura con potencial, pero detectamos fugas de rendimiento en la conversión de audiencia. La fórmula actual requiere un ajuste en la frecuencia de impacto y optimización de creativos para maximizar el ROI en el mercado paraguayo.`,
+        summary: `El perfil ${cleanUsername} presenta una estructura con potencial, pero detectamos fugas de rendimiento en la conversión de audiencia. La fórmula actual requiere un ajuste en la frecuencia de impacto y optimización de creativos para maximizar el ROI en tu mercado.`,
         potentialText: "Tu perfil tiene la base necesaria para escalar con pauta publicitaria científica.",
         profileName: cleanUsername,
         positivePoints: [
@@ -100,7 +100,7 @@ export default function GrowthScanner() {
           },
           { 
             text: "Propuesta de valor clara", 
-            advice: "Podemos escalar este mensaje mediante anuncios de 'Broad Targeting' para dominar tu nicho en Paraguay." 
+            advice: "Podemos escalar este mensaje mediante anuncios de 'Broad Targeting' para dominar tu nicho." 
           }
         ],
         negativePoints: [
