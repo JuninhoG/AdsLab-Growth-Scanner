@@ -18,7 +18,7 @@ import {
   Megaphone,
   Calendar
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface LabComponent {
   title: string;
@@ -253,7 +253,7 @@ export default function GrowthScanner() {
                   />
                   <p className="text-[10px] uppercase tracking-[0.3em] text-slate-500 mb-2">Resultados del Análisis</p>
                   <h3 className="text-3xl md:text-5xl font-bold">
-                    Perfil: <span className="lab-text-gradient">{results?.profileName}</span>
+                    Perfil: <span className="lab-text-gradient">{results?.profileName || username}</span>
                   </h3>
                 </div>
 
@@ -279,17 +279,17 @@ export default function GrowthScanner() {
                         </defs>
                       </svg>
                       <div className="absolute flex flex-col items-center">
-                        <span className="text-4xl font-bold">{results?.effectiveness}</span>
+                        <span className="text-4xl font-bold">{results?.effectiveness || 0}</span>
                         <span className="text-[10px] text-slate-500 uppercase tracking-widest">/100</span>
                       </div>
                     </div>
-                    <span className="mt-4 text-sm font-bold text-slate-300 uppercase tracking-widest">{results?.reaction}</span>
+                    <span className="mt-4 text-sm font-bold text-slate-300 uppercase tracking-widest">{results?.reaction || 'Análisis'}</span>
                   </div>
                 </div>
 
                 {/* Grid Components */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                  {results?.components.map((comp, idx) => (
+                  {results?.components?.map((comp, idx) => (
                     <div key={idx} className="glass-panel p-6 rounded-2xl border-white/5">
                       <div className="flex justify-between items-center mb-6">
                         <div className="flex items-center gap-3">
@@ -301,7 +301,7 @@ export default function GrowthScanner() {
                         <span className="text-[10px] font-mono text-adslab-cyan">{comp.score}/100</span>
                       </div>
                       <div className="space-y-3">
-                        {comp.items.map((item, iIdx) => (
+                        {comp.items?.map((item, iIdx) => (
                           <div key={iIdx} className="flex items-start gap-2">
                             {item.status === 'success' ? (
                               <CheckCircle2 className="w-3.5 h-3.5 text-adslab-cyan shrink-0 mt-0.5" />
